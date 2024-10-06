@@ -1,91 +1,3 @@
-// import { useEffect, useState } from "react";
-// import app from "../firebaseSetup/firebaseConfig";
-// import { ref, get, getDatabase } from "firebase/database";
-
-// const UserList = () => {
-//   const [users, setUsers] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null); // State to manage errors
-
-//   const fetchUsers = async () => {
-//     try {
-//       const db = getDatabase(app);
-//       const usersRef = ref(db, "data / users /"); // Reference to users path
-//       const snapshot = await get(usersRef); // Fetch data
-
-//       if (snapshot.exists()) {
-//         const data = snapshot.val();
-//         const fetchedUsers = Object.entries(data).map(([id, user]) => ({
-//           id,
-//           ...user,
-//         }));
-
-//         setUsers(fetchedUsers); // Update state with fetched users
-//       }
-//     } catch (err) {
-//       console.error("Error fetching users:", err);
-//       setError(err.message); // Capture any errors
-//     } finally {
-//       setLoading(false); // Set loading to false after fetching
-//     }
-//   };
-//   console.log(users.map((item) => item.id));
-//   console.log(users);
-
-//   useEffect(() => {
-//     fetchUsers(); // Call the fetch function on mount
-//   }, []);
-
-//   if (loading) return <p>Loading users...</p>;
-//   if (error) return <p>Error: {error}</p>; // Display error if any
-
-//   return (
-//     <div>
-//       <h1>User List</h1>
-//       <ul>
-//         {users.map((recipe) => (
-//           <li key={recipe.id}>
-//             <h2>{recipe.name}</h2>
-//             <p>
-//               <strong>Cooking Time:</strong> {recipe.cookingTime}
-//             </p>
-//             <p>
-//               <strong>Cuisine:</strong> {recipe.cuisine}
-//             </p>
-//             <p>
-//               <strong>Ingredients:</strong> {recipe.ingredients}
-//             </p>
-//             <p>
-//               <strong>Instructions:</strong> {recipe.instructions}
-//             </p>
-//             <p>
-//               <strong>Notes:</strong> {recipe.notes}
-//             </p>
-//             <p>
-//               <strong>Preparation Time:</strong> {recipe.preparationTime}
-//             </p>
-//             <p>
-//               <strong>Servings:</strong> {recipe.servings}
-//             </p>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default UserList;
-
-// import React from 'react'
-
-// const ViewRecipe = () => {
-//   return (
-//     <div>ViewRecipe</div>
-//   )
-// }
-
-// export default ViewRecipe
-
 import { useEffect, useState } from "react";
 import app from "../firebaseSetup/firebaseConfig";
 
@@ -100,19 +12,7 @@ const ViewRecipe = () => {
     try {
       const db = getDatabase(app);
       const usersRef = ref(db, "data / users /"); // Reference to users path
-      //   const usersRef = ref(db, "users"); // Reference to the users path
       const snapshot = await get(usersRef); // Fetch data
-
-      //       const snapshot = await get(usersRef); // Fetch data
-
-      //       if (snapshot.exists()) {
-      //         const data = snapshot.val();
-      //         const fetchedUsers = Object.entries(data).map(([id, user]) => ({
-      //           id,
-      //           ...user,
-      //         }));
-
-      //         setUsers(fetchedUsers); // Update state with fetched users
       if (snapshot.exists()) {
         const usersData = snapshot.val();
         const allRecipes = []; // To hold all recipes across users
@@ -129,6 +29,9 @@ const ViewRecipe = () => {
               instructions: recipe.instructions,
               notes: recipe.notes,
               preparationTime: recipe.preparationTime,
+              fname: recipe.fname,
+              lname: recipe.lname,
+              email: recipe.email,
             });
           });
         });
@@ -166,6 +69,10 @@ const ViewRecipe = () => {
                 <div className="col-span-9">
                   <div>
                     <div>
+                      <div className="text-sm text-gray-500">
+                        From:- {item.fname} {item.lname}
+                        <div>{item.email}</div>
+                      </div>
                       <div>
                         <span className="text-3xl font-bold text-stone-700">
                           {item.name}{" "}

@@ -33,6 +33,12 @@ import {
 
 const WriteRecipe = () => {
   const { isLoaded, user } = useUser();
+  console.log(user.firstName);
+  console.log(user.lastName);
+  console.log(user.emailAddresses[0].emailAddress);
+  const [fname] = useState(user.firstName);
+  const [lname] = useState(user.lastName);
+  const [email] = useState(user.emailAddresses[0].emailAddress);
 
   const [recipe, setRecipe] = useState({
     names: "",
@@ -43,6 +49,9 @@ const WriteRecipe = () => {
     servings: "",
     cuisine: "",
     notes: "",
+    fname: fname,
+    lname: lname,
+    email: email,
   });
   const [error, setError] = useState({});
   const [open, setOpen] = useState(false);
@@ -81,6 +90,9 @@ const WriteRecipe = () => {
         servings: recipe.servings,
         cuisine: recipe.cuisine,
         notes: recipe.notes,
+        fname: recipe.fname,
+        lname: recipe.lname,
+        email: recipe.email,
       })
         .then(() => {
           alert("data saved successfully");
