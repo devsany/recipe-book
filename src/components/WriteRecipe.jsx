@@ -8,11 +8,34 @@ import app from "../firebaseSetup/firebaseConfig";
 
 import { ref, set, push, getDatabase } from "firebase/database";
 
+// akdfhakdf
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../../components/ui/dialog";
+// import {
+//   Drawer,
+//   DrawerClose,
+//   DrawerContent,
+//   DrawerDescription,
+//   DrawerFooter,
+//   DrawerHeader,
+//   DrawerTitle,
+//   DrawerTrigger,
+// } from "@/components/ui/drawer";
+// import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
+
 const WriteRecipe = () => {
   const { isLoaded, user } = useUser();
 
   const [recipe, setRecipe] = useState({
-    name: "",
+    names: "",
     ingredients: "",
     instructions: "",
     cookingTime: "",
@@ -22,6 +45,8 @@ const WriteRecipe = () => {
     notes: "",
   });
   const [error, setError] = useState({});
+  const [open, setOpen] = useState(false);
+  //   const isDesktop = useMediaQuery("(min-width: 768px)");
   //
   if (!isLoaded) {
     return (
@@ -38,8 +63,8 @@ const WriteRecipe = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const error = {};
-    if (!recipe.name) {
-      error.name = "require";
+    if (!recipe.names) {
+      error.names = "require";
     } else if (!recipe.ingredients) {
       error.ingredients = "require";
     } else if (!recipe.instructions) {
@@ -48,7 +73,14 @@ const WriteRecipe = () => {
       const db = getDatabase(app);
       const newDocRecipe = push(ref(db, `${user.firstName}` + "/recipe"));
       set(newDocRecipe, {
-        descriptionOfRecipe: input2,
+        name: recipe.names,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+        cookingTime: recipe.cookingTime,
+        preparationTime: recipe.preparationTime,
+        servings: recipe.servings,
+        cuisine: recipe.cuisine,
+        notes: recipe.notes,
       })
         .then(() => {
           alert("data saved successfully");
@@ -57,6 +89,7 @@ const WriteRecipe = () => {
           alert("error", err.message);
         });
     }
+
     setError(error);
   };
 
@@ -77,38 +110,35 @@ const WriteRecipe = () => {
           <div>
             <div>
               <form onSubmit={handleSubmit}>
-                <div className="grid grid-cols-1 gap-8 p-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-                  <div className="border">
+                <div className="grid grid-cols-1 gap-8 lg:p-10 sm:p-8 p-6 md:p-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                  <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
                     <div>
-                      <label htmlFor="name"></label>
-                      {error ? (
-                        <div className="text-black">Name of Recipe</div>
-                      ) : (
-                        <div className="text-red-500">Name of Recipe</div>
-                      )}
-
+                      {/* <label htmlFor="names">Name</label> */}
+                      <label htmlFor="names">Name of Recipe</label>
                       <input
-                        id="name"
+                        className="border w-[100%] shadow-sm rounded-sm pl-1"
+                        id="names"
                         type="text"
-                        name="name"
+                        name="names"
                         placeholder="Recipe Name *"
-                        value={recipe.name}
+                        value={recipe.names}
                         onChange={handleChange}
                       />
                     </div>
                     <div className="text-red-500">
                       {" "}
-                      {error && <div>{error.name}</div>}
+                      {error && <div>{error.names}</div>}
                     </div>
                   </div>
 
-                  <div>
+                  <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
                     <div>
                       <label htmlFor="cookingTime">Cooking Time</label>
                     </div>
                     <div>
                       {" "}
                       <input
+                        className="border w-[100%] shadow-sm rounded-sm pl-1"
                         id="cookingTime"
                         type="text"
                         name="cookingTime"
@@ -118,12 +148,13 @@ const WriteRecipe = () => {
                       />
                     </div>
                   </div>
-                  <div>
+                  <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
                     <div>
                       <label htmlFor="preparationTime">Preparation Time</label>
                     </div>
                     <div>
                       <input
+                        className="border w-[100%] shadow-sm rounded-sm pl-1"
                         id="preparationTime"
                         type="text"
                         name="preparationTime"
@@ -133,13 +164,14 @@ const WriteRecipe = () => {
                       />
                     </div>
                   </div>
-                  <div>
+                  <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
                     <div>
                       <label htmlFor="servings">Servings</label>
                     </div>
                     <div>
                       {" "}
                       <input
+                        className="border w-[100%] shadow-sm rounded-sm pl-1"
                         type="number"
                         name="servings"
                         placeholder="Number of Servings"
@@ -148,13 +180,14 @@ const WriteRecipe = () => {
                       />
                     </div>
                   </div>
-                  <div>
+                  <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
                     <div>
                       <label htmlFor="cuisine">Cuisine</label>
                     </div>
                     <div>
                       {" "}
                       <select
+                        className="border w-[100%] shadow-sm rounded-sm pl-1"
                         name="cuisine"
                         value={recipe.cuisine}
                         onChange={handleChange}
@@ -169,60 +202,90 @@ const WriteRecipe = () => {
 
                   {/* Checkbox for dietary preferences, file input for image, etc. */}
                 </div>
-                <div className="grid grid-cols-1 gap-8 pl-10 pr-10 pb-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-                  <div>
+                <div className="grid grid-cols-1 gap-8 pl-6 sm:pl-6 md:pl-10 pr-10 pb-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+                  <div className="rounded-md font-mono text-md  ">
                     <div>
                       <label htmlFor="ingredients">Ingredients</label>
                     </div>
                     <div>
                       {" "}
                       <textarea
+                        className="shadow-lg border  rounded-md"
                         id="ingredients"
                         name="ingredients"
                         placeholder="Ingredients *"
-                        rows={10}
-                        cols={50}
+                        rows={8}
+                        cols={45}
                         onChange={handleChange}
                         value={recipe.ingredients}
                       />
                     </div>
-                    <div>{error && <div>{error.ingredients}</div>}</div>
+                    <div>
+                      {error && (
+                        <div className="text-red-500">{error.ingredients}</div>
+                      )}
+                    </div>
                   </div>
-                  <div>
+                  <div className=" rounded-md font-mono text-md  ">
                     <div>
                       <label htmlFor="instructions">Instructions</label>
                     </div>
                     <div>
                       {" "}
                       <textarea
+                        className="shadow-lg border rounded-md"
                         id="instructions"
                         name="instructions"
                         placeholder="Instructions *"
-                        rows={10}
-                        cols={50}
+                        rows={8}
+                        cols={45}
                         onChange={handleChange}
                       />
                     </div>
-                    <div> {error && <div>{error.instructions}</div>}</div>
+                    <div>
+                      {" "}
+                      {error && (
+                        <div className="text-red-500">{error.instructions}</div>
+                      )}
+                    </div>
                   </div>
-                  <div className=" sm:col-span-1 ">
+                  <div className="rounded-md font-mono text-md   sm:col-span-1 ">
                     <div>
                       <label htmlFor="notes">Notes</label>
                     </div>
                     <div>
                       <textarea
+                        className="shadow-lg border rounded-md"
                         name="notes"
                         placeholder="Additional Notes"
-                        rows={10}
-                        cols={50}
+                        rows={8}
+                        cols={45}
                         onChange={handleChange}
                         value={recipe.notes}
                       />
                     </div>
                   </div>
                 </div>
+                <div>
+                  {/* <Dialog open={open} onOpenChange={setOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">Edit Profile</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Edit profile</DialogTitle>
+                        <DialogDescription>
+                          Make changes to your profile here. Click save when you
+                          done.
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog> */}
+                </div>
                 <div className="flex justify-end">
-                  <Button type="submit">Add Recipe</Button>
+                  <Button className="mr-8 bg-green-200 border " type="submit">
+                    Add Recipe
+                  </Button>
                 </div>
               </form>
             </div>
@@ -238,7 +301,7 @@ const WriteRecipe = () => {
 
                   <Button
                     variant="secondary"
-                    className="border mt-4 md:mt-5 hover:border-yellow-500 border-pink-300 shadow-md shadow-yellow-100"
+                    className="border   mt-4 md:mt-5 hover:border-yellow-500 border-pink-300 shadow-md shadow-yellow-100"
                   >
                     <NavLink to="https://leading-wallaby-6.accounts.dev/sign-in#/?redirect_url=http%3A%2F%2Flocalhost%3A5174%2F">
                       <div className="flex">
