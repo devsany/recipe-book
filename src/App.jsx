@@ -27,12 +27,12 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-          <div className={`md:border  md:h-[110px] grid md:grid-cols-2 gap-8`}>
+          <div className={`md:border  md:h-[80px] grid md:grid-cols-2 gap-8`}>
             <div>
               <div className="grid grid-cols-2 ">
                 <div className="p-2">
                   <img
-                    className="w-[100px] md:w-[150px]"
+                    className="w-[90px] shadow-sm md:w-[100px]"
                     src="recbook_logo_main.png"
                     alt="logo"
                   />
@@ -78,7 +78,7 @@ function App() {
                       </NavLink> */}
                     </div>
                     <div className=" ">
-                      <NavLink onClick={handleNavDis} to="write_recipe_book">
+                      <NavLink onClick={handleNavDis} to="/write_recipe_book">
                         <div className=" w-[100%] text-center  text-white  p-[1.2em]">
                           Add Recipe
                         </div>
@@ -138,7 +138,7 @@ function App() {
                 </NavLink>
               </div> */}
               <div>
-                <NavLink className="text-slate-900" to="write_recipe_book">
+                <NavLink className="text-slate-900" to="/write_recipe_book">
                   Add Recipe
                 </NavLink>
               </div>

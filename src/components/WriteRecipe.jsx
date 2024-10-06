@@ -33,12 +33,12 @@ import {
 
 const WriteRecipe = () => {
   const { isLoaded, user } = useUser();
-  console.log(user.firstName);
-  console.log(user.lastName);
-  console.log(user.emailAddresses[0].emailAddress);
-  const [fname] = useState(user.firstName);
-  const [lname] = useState(user.lastName);
-  const [email] = useState(user.emailAddresses[0].emailAddress);
+  //   console.log(user.firstName);
+  //   console.log(user.lastName);
+  //   console.log(user.emailAddresses[0].emailAddress);
+  const [fname] = useState(user?.firstName);
+  const [lname] = useState(user?.lastName);
+  const [email] = useState(user?.emailAddresses[0].emailAddress);
 
   const [recipe, setRecipe] = useState({
     names: "",
@@ -315,7 +315,7 @@ const WriteRecipe = () => {
                     variant="secondary"
                     className="border   mt-4 md:mt-5 hover:border-yellow-500 border-pink-300 shadow-md shadow-yellow-100"
                   >
-                    <NavLink to="https://leading-wallaby-6.accounts.dev/sign-in#/?redirect_url=http%3A%2F%2Flocalhost%3A5174%2F">
+                    <NavLink to="https://loyal-weevil-7.accounts.dev/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A5174%2F">
                       <div className="flex">
                         <div className="text-pink-500">Get Started </div>
                         <div className="pt-[2px]">
