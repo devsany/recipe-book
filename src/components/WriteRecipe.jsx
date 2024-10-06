@@ -71,7 +71,7 @@ const WriteRecipe = () => {
       error.instructions = "require";
     } else {
       const db = getDatabase(app);
-      const newDocRecipe = push(ref(db, `${user.firstName}` + "/recipe"));
+      const newDocRecipe = push(ref(db, "data / users /" + `${user.id}`));
       set(newDocRecipe, {
         name: recipe.names,
         ingredients: recipe.ingredients,
