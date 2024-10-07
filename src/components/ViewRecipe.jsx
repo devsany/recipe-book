@@ -7,6 +7,7 @@ const ViewRecipe = () => {
   const [recipes, setRecipes] = useState([]); // State to hold recipe data
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
+  const [query, setQuery] = useState("");
 
   const fetchRecipes = async () => {
     try {
@@ -47,7 +48,9 @@ const ViewRecipe = () => {
       setLoading(false); // Set loading to false after fetching
     }
   };
-
+  const filteredItems = recipes.filter((item) =>
+    item.name.toLowerCase().includes(query.toLowerCase())
+  );
   useEffect(() => {
     fetchRecipes(); // Call the fetch function on mount
   }, []);
@@ -68,8 +71,16 @@ const ViewRecipe = () => {
   return (
     <div>
       <h1>Recipe List</h1>
+      <input
+        type="text"
+        placeholder="enter recipe name"
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+      />
       <ul>
-        {recipes.map((item, index) => {
+        {filteredItems.map((item, index) => {
           return (
             <>
               <div
