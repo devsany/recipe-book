@@ -52,8 +52,18 @@ const ViewRecipe = () => {
     fetchRecipes(); // Call the fetch function on mount
   }, []);
 
-  if (loading) return <p>Loading recipes...</p>;
-  if (error) return <p>Error: {error}</p>; // Display error if any
+  if (loading)
+    return (
+      <div className="w-[100%] h-[80vh] flex justify-center items-center text-2xl bold">
+        Loading recipes...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="w-[100%] h-[80vh] flex justify-center items-center text-2xl bold">
+        Error: {error}
+      </div>
+    ); // Display error if any
 
   return (
     <div>
