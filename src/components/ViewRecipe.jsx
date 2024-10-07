@@ -70,17 +70,29 @@ const ViewRecipe = () => {
 
   return (
     <div>
-      <h1>Recipe List</h1>
-      <input
-        type="text"
-        placeholder="enter recipe name"
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-        }}
-      />
+      <h2 className="p-2 m-2 text-3xl bold text-gray-700 border-l-4 border-green-500">
+        Recipe List
+      </h2>
+      <div className="shadow-lg ml-10 w-[300px] rounded-md font-mono text-md h-[90px] p-2">
+        <div>
+          {/* <label htmlFor="names">Name</label> */}
+          <label htmlFor="names">Enter Recipe Name</label>
+          <input
+            className="border w-[100%] shadow-sm rounded-sm pl-1"
+            id="names"
+            type="text"
+            placeholder="enter recipe name"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+            }}
+          />
+          <div className="text-green-500"> Search</div>
+        </div>
+      </div>
+
       <ul>
-        {filteredItems.map((item, index) => {
+        {filteredItems.reverse().map((item, index) => {
           return (
             <>
               <div

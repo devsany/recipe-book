@@ -1,6 +1,6 @@
 import { Button } from "../../components/ui/button";
 import { useUser } from "@clerk/clerk-react";
-import { ShoppingBag, ShoppingBasket } from "lucide-react";
+import {   ShoppingBasket } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -9,15 +9,7 @@ import app from "../firebaseSetup/firebaseConfig";
 import { ref, set, push, getDatabase } from "firebase/database";
 
 // akdfhakdf
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../../components/ui/dialog";
+ 
 // import {
 //   Drawer,
 //   DrawerClose,
@@ -54,7 +46,7 @@ const WriteRecipe = () => {
     email: email,
   });
   const [error, setError] = useState({});
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   //   const isDesktop = useMediaQuery("(min-width: 768px)");
   //
   if (!isLoaded) {
@@ -117,6 +109,11 @@ const WriteRecipe = () => {
   //   };
   return (
     <div>
+      <div>
+        <h2 className="p-2 m-2 text-3xl bold text-gray-700 border-l-4 border-green-500">
+          Add Recipe
+        </h2>
+      </div>
       <div>
         {user ? (
           <div>
