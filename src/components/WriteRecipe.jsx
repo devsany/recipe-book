@@ -1,6 +1,6 @@
 import { Button } from "../../components/ui/button";
 import { useUser } from "@clerk/clerk-react";
-import {   ShoppingBasket } from "lucide-react";
+import { ShoppingBasket } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -9,7 +9,7 @@ import app from "../firebaseSetup/firebaseConfig";
 import { ref, set, push, getDatabase } from "firebase/database";
 
 // akdfhakdf
- 
+
 // import {
 //   Drawer,
 //   DrawerClose,
@@ -31,6 +31,7 @@ const WriteRecipe = () => {
   const [fname] = useState(user?.firstName);
   const [lname] = useState(user?.lastName);
   const [email] = useState(user?.emailAddresses[0].emailAddress);
+  const currentDate = new Date();
 
   const [recipe, setRecipe] = useState({
     names: "",
@@ -44,6 +45,7 @@ const WriteRecipe = () => {
     fname: fname,
     lname: lname,
     email: email,
+    date: currentDate.toLocaleDateString(),
   });
   const [error, setError] = useState({});
   // const [open, setOpen] = useState(false);
@@ -85,6 +87,7 @@ const WriteRecipe = () => {
         fname: recipe.fname,
         lname: recipe.lname,
         email: recipe.email,
+        date: recipe.date,
       })
         .then(() => {
           alert("data saved successfully");
@@ -202,6 +205,9 @@ const WriteRecipe = () => {
                         onChange={handleChange}
                       >
                         <option value="">Select Cuisine</option>
+                        <option value="Indian">India</option>
+                        <option value="Japanise">Japanise</option>
+                        <option value="USA">USA</option>
                         <option value="Italian">Italian</option>
                         <option value="Chinese">Chinese</option>
                         {/* Add more options */}

@@ -103,6 +103,9 @@ const ViewRecipe = () => {
                   <div>
                     <div>
                       <div className="text-sm text-gray-500">
+                        Date :- {item.date}
+                      </div>
+                      <div className="text-sm text-gray-500">
                         From:- {item.fname} {item.lname}
                         <div>{item.email}</div>
                       </div>

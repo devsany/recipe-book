@@ -22,6 +22,7 @@ const Dashboard = () => {
   const filteredItems = data.filter((item) =>
     item.name.toLowerCase().includes(query.toLowerCase())
   );
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -66,6 +67,9 @@ const Dashboard = () => {
                           <div>
                             <div>
                               <div>
+                                <div className="text-sm text-gray-500">
+                                  Date :- {item.date}
+                                </div>
                                 <span className="text-3xl font-bold text-stone-700">
                                   {item.name}{" "}
                                 </span>
