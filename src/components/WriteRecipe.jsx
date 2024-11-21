@@ -274,7 +274,7 @@ const WriteRecipe = () => {
                         name="notes"
                         placeholder="Additional Notes"
                         rows={8}
-                        cols={45}
+                        cols={40}
                         onChange={handleChange}
                         value={recipe.notes}
                       />

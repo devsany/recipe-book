@@ -27,7 +27,7 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-          <div className={`md:border  md:h-[80px] grid md:grid-cols-2 gap-8`}>
+          <div className={`md:border md:h-[80px] grid md:grid-cols-2 gap-8`}>
             <div>
               <div className="grid grid-cols-2 ">
                 <div className="p-2">
